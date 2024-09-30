@@ -30,6 +30,7 @@ services:
       - ../:/var/www/html:cached
     networks:
       - user_entry_api_network
+    working_dir: /var/www/html
   nginx:
     container_name: user_entry_server
     build:

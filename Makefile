@@ -1,6 +1,6 @@
 .PHONY: up bash stop
 up:
-	cd docker && docker-compose up
+	cd docker && docker-compose up -d
 
 bash:
 	cd docker && docker-compose exec php sh
