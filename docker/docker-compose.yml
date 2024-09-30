@@ -1,0 +1,59 @@
+services:
+  postgresql:
+    build:
+      context: ./postgresql
+      args:
+        POSTGRES_PASSWORD: ${DB_PASSWORD}
+        POSTGRES_DB: ${DB_NAME}
+        POSTGRES_HOST: ${DB_HOST}
+        POSTGRES_PORT: ${DB_PORT}
+    container_name: user_entry_database
+    restart: always
+    ports:
+      - "${DB_PORT}:${DB_PORT}"
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_HOST: ${DB_HOST}
+      POSTGRES_PORT: ${DB_PORT}
+    volumes:
+      - postgresql_user_entry_api_data:/var/lib/postgresql/data
+    networks:
+      - user_entry_api_network
+  php:
+    container_name: user_entry_php
+    build:
+      context: ./php
+      args:
+        TIMEZONE: ${TIMEZONE}
+    volumes:
+      - ../:/var/www/html:cached
+    networks:
+      - user_entry_api_network
+  nginx:
+    container_name: user_entry_server
+    build:
+      context: ./nginx
+    volumes:
+      - ../:/var/www/html:cached
+    ports:
+      - "80:80"
+    networks:
+      - user_entry_api_network
+    env_file:
+      - .env.nginx.local
+  rabbitmq:
+    build:
+      context: ./rabbitmq
+    container_name: user_entry_messenger
+    ports:
+      - "15672:15672"  # RabbitMQ Management UI
+      - "5672:5672"    # RabbitMQ Transport Port
+    networks:
+      - user_entry_api_network
+
+volumes:
+  postgresql_user_entry_api_data:
+
+networks:
+  user_entry_api_network:
