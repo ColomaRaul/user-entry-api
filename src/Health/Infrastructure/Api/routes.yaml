@@ -2,3 +2,13 @@ GetHealth:
   path: /health
   controller: App\Health\Infrastructure\Api\GetHealthController
   methods: [GET]
+
+CreateValue:
+  path: /values
+  controller: App\Health\Infrastructure\Api\CreateValueController
+  methods: [POST]
+
+GetAllValues:
+  path: /values
+  controller: App\Health\Infrastructure\Api\GetAllValuesController
+  methods: [GET]

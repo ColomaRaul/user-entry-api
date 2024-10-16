@@ -6,6 +6,7 @@ use App\Shared\Application\Command\CommandInterface;
 use App\Shared\Application\Query\QueryInterface;
 use App\Shared\Application\Query\QueryResponseInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Messenger\Exception\HandlerFailedException;
 use Symfony\Component\Messenger\HandleTrait;
 use Symfony\Component\Messenger\MessageBusInterface;
@@ -50,5 +51,10 @@ abstract class AbstractApiController extends AbstractController
 
             throw $e;
         }
+    }
+
+    protected function getContentBody(Request $request): array
+    {
+        return json_decode($request->getContent(), true);
     }
 }

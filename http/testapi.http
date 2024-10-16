@@ -1,0 +1,16 @@
+#Test health
+### Get Health
+GET localhost/api/v1/health
+
+
+#Test create value
+### Create test value
+POST localhost/api/v1/values
+Content-Type: application/json
+
+{
+  "value": "test"
+}
+
+### Get all values
+GET localhost/api/v1/values
