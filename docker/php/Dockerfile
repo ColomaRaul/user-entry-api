@@ -35,5 +35,8 @@ RUN mkdir -p /srv/app/var/cache /srv/app/var/log 																&&	\
     setfacl -R -m u:www-data:rwX -m u:"$(whoami)":rwX /srv/app/var												&& 	\
 	setfacl -dR -m u:www-data:rwX -m u:"$(whoami)":rwX /srv/app/var
 
+RUN apk add --no-cache rabbitmq-c-dev libressl-dev
+RUN pecl install amqp \
+    && docker-php-ext-enable amqp
 
 WORKDIR /var/www/html

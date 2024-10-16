@@ -10,6 +10,6 @@ final class GetHealthQueryHandler
 {
     public function __invoke(GetHealthQuery $query): QueryResponseInterface
     {
-        return new GetHealthQueryResponse('UP');
+        return new GetHealthQueryResponse('Es una prueba');
     }
 }
